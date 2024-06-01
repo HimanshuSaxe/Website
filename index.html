@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FTP Server Data</title>
+</head>
+<body>
+    <h1>FTP Server Data</h1>
+    <div id="file-list"></div>
+
+    <script>
+        fetch('http://localhost:3000/ftp-data')
+            .then(response => response.json())
+            .then(data => {
+                const fileListDiv = document.getElementById('file-list');
+                fileListDiv.innerHTML = '';
+                data.forEach(file => {
+                    const fileDiv = document.createElement('div');
+                    fileDiv.textContent = `${file.name} - ${file.size}`;
+                    fileListDiv.appendChild(fileDiv);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    </script>
+</body>
+</html>
